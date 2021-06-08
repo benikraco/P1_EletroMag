@@ -22,9 +22,9 @@ for i in w:
 
 y = [ele.imag for ele in z]
 
-# plt.plot(w,y)
-# plt.grid()
-# plt.show()
+plt.plot(w,y)
+plt.grid()
+plt.show()
 
 
 
@@ -36,12 +36,10 @@ Uf = 1
 
 
 M = 1/res_freq
-# print(M)
 ganhos=[]
 
 def CalcularTransformador(Uf, Rc, m):
-    XM = res_freq*1j*m
-    Z=np.array([[R1, -XM],[-XM, Rc]])
+    Z=np.array([[R1, -m],[-m, R2+Rc]])
     V=np.array([Uf,0])
     i=np.dot(linalg.inv(Z),V)
     return i[0], i[1]
@@ -53,15 +51,18 @@ for m in Ms:
     i1= CalcularTransformador(1,RC,m)[0] 
     i2 = CalcularTransformador(1,RC,m)[1]
     G = abs((i2**2/i1**2))
-    # print(G)
-    # print(i1, i2)
+    print(G)
+    print(i1, i2)
     ganhos.append(G)
 
 plt.plot(Ms, ganhos)
-plt.ylabel("Ganho")
-plt.xlabel("M")
-plt.title("Ganho de i2/i1")
-print("")
-# print(list(ganhos))
-# print(list(Ms))
 plt.show()
+
+
+
+
+
+
+
+
+
